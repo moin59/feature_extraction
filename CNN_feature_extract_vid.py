@@ -12,13 +12,12 @@ cap = cv2.VideoCapture(0)
 
 while cv2.waitKey(1) < 0:
     ret,input_image_file = cap.read()
+
     ##### feature extract by caffenet
+    # Berkeley Vision caffe reference model can be download from
+    #  https://github.com/BVLC/caffe/tree/master/models/bvlc_reference_caffenet
     model_file = 'bvlc_reference_caffenet.caffemodel'
     deploy_prototxt = 'deploy.prototxt'
-
-    ### feature extract by VGG-19
-    # model_file = '/home/wh/Thesis/feature_extract/vgg/VGG_ILSVRC_19_layers.caffemodel'
-    # deploy_prototxt = '/home/wh/Thesis/feature_extract/vgg/VGG_ILSVRC_19_layers_deploy.prototxt'
 
     convNet = caffe.net(deploy_prototxt, model_file, caffe.TEST)
     layer = 'fc6'
@@ -47,6 +46,3 @@ while cv2.waitKey(1) < 0:
             new_list.append(float(item))
         file.write(str(new_list) + '\n'+'"Standing",')
         print(new_list)
-            # coordinate_value = np.array(abstract, dtype=np.float32)
-    # with open('output_file.txt', 'w') as f:
-    #     np.savetxt(f, convNet.blobs[layer].data[0], fmt='%.4f', delimiter='\n')
