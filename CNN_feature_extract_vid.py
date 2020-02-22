@@ -1,11 +1,15 @@
+# author: Moin Uddin
+# 07 February 2020
+# Bremen
+
 import sys
 import os
 import cv2
 import numpy as np
-caffe_root = '/home/wh/caffe/python'
-sys.path.insert(0, os.path.join(caffe_root, 'caffe'))
+# caffe_root = '/home/wh/caffe/python'
+# sys.path.insert(0, os.path.join(caffe_root, 'caffe'))
 import caffe
-caffe.set_mode_gpu()
+# caffe.set_mode_gpu()
 
 ####class 1 for stand & class 0 for sitting
 cap = cv2.VideoCapture(0)
@@ -39,10 +43,10 @@ while cv2.waitKey(1) < 0:
     output = convNet.forward()
 
     # generated key-points value save into a txt file
-    with open("feature_stand.txt", 'a') as file:
+    with open("feature.txt", 'a') as file:
         abstract = convNet.blobs[layer].data[0]
         new_list = []
         for item in abstract:
             new_list.append(float(item))
-        file.write(str(new_list) + '\n'+'"Standing",')
+        file.write(str(new_list) + '\n')
         print(new_list)
